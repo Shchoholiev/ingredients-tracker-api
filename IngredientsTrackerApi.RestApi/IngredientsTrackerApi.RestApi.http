@@ -1,0 +1,6 @@
+@IngredientsTrackerApi.RestApi_HostAddress = http://localhost:5064
+
+GET {{IngredientsTrackerApi.RestApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

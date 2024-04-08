@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.Domain", "IngredientsTrackerApi.Domain\IngredientsTrackerApi.Domain.csproj", "{E4096EA9-2B98-46F0-8161-48B2F6D060C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.Application", "IngredientsTrackerApi.Application\IngredientsTrackerApi.Application.csproj", "{7DDAF013-C32B-4E8F-89EE-948EA97C02C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.Persistance", "IngredientsTrackerApi.Persistance\IngredientsTrackerApi.Persistance.csproj", "{7F8EE758-41DF-4AB6-88DB-9F0D0970D0EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.Infrastructure", "IngredientsTrackerApi.Infrastructure\IngredientsTrackerApi.Infrastructure.csproj", "{88969D7A-743C-462B-9633-7902A1F83F91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.RestApi", "IngredientsTrackerApi.RestApi\IngredientsTrackerApi.RestApi.csproj", "{A1E89379-DDE6-4672-9F7A-1D2A8454DEE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientsTrackerApi.IntegrationTests", "IngredientsTrackerApi.IntegrationTests\IngredientsTrackerApi.IntegrationTests.csproj", "{838B2AFE-2479-4467-92FD-C7DB51122135}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4096EA9-2B98-46F0-8161-48B2F6D060C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4096EA9-2B98-46F0-8161-48B2F6D060C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4096EA9-2B98-46F0-8161-48B2F6D060C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4096EA9-2B98-46F0-8161-48B2F6D060C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DDAF013-C32B-4E8F-89EE-948EA97C02C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DDAF013-C32B-4E8F-89EE-948EA97C02C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DDAF013-C32B-4E8F-89EE-948EA97C02C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DDAF013-C32B-4E8F-89EE-948EA97C02C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8EE758-41DF-4AB6-88DB-9F0D0970D0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8EE758-41DF-4AB6-88DB-9F0D0970D0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8EE758-41DF-4AB6-88DB-9F0D0970D0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8EE758-41DF-4AB6-88DB-9F0D0970D0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88969D7A-743C-462B-9633-7902A1F83F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88969D7A-743C-462B-9633-7902A1F83F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88969D7A-743C-462B-9633-7902A1F83F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88969D7A-743C-462B-9633-7902A1F83F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E89379-DDE6-4672-9F7A-1D2A8454DEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E89379-DDE6-4672-9F7A-1D2A8454DEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E89379-DDE6-4672-9F7A-1D2A8454DEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E89379-DDE6-4672-9F7A-1D2A8454DEE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838B2AFE-2479-4467-92FD-C7DB51122135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838B2AFE-2479-4467-92FD-C7DB51122135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838B2AFE-2479-4467-92FD-C7DB51122135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838B2AFE-2479-4467-92FD-C7DB51122135}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

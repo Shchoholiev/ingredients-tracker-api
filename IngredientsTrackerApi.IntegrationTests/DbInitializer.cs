@@ -2,8 +2,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using IngredientsTrackerApi.Domain.Entities;
 using IngredientsTrackerApi.Domain.Entities.Identity;
-// using IngredientsTrackerApi.Domain.Enums;
-// using IngredientsTrackerApi.Infrastructure.Services.Identity;
+using IngredientsTrackerApi.Infrastructure.Services.Identity;
 using IngredientsTrackerApi.Persistance.Database;
 
 namespace IngredientsTrackerApi.IntegrationTests;
@@ -16,132 +15,132 @@ public class DbInitializer(MongoDbContext dbContext)
     {
         _dbContext.Client.DropDatabase(_dbContext.Db.DatabaseNamespace.DatabaseName);
         
-        // InitializeUsersAsync().Wait();
+        InitializeUsersAsync().Wait();
     }
 
     public async Task InitializeUsersAsync()
     {
-    //     #region Roles
+        #region Roles
 
-    //     var rolesCollection = _dbContext.Db.GetCollection<Role>("Roles");
+        var rolesCollection = _dbContext.Db.GetCollection<Role>("Roles");
 
-    //     var userRole = new Role
-    //     {
-    //         Name = "User"
-    //     };
-    //     await rolesCollection.InsertOneAsync(userRole);
+        var userRole = new Role
+        {
+            Name = "User"
+        };
+        await rolesCollection.InsertOneAsync(userRole);
 
-    //     var ownerRole = new Role
-    //     {
-    //         Name = "Owner"
-    //     };
-    //     await rolesCollection.InsertOneAsync(ownerRole);
+        var ownerRole = new Role
+        {
+            Name = "Owner"
+        };
+        await rolesCollection.InsertOneAsync(ownerRole);
 
-    //     var adminRole = new Role
-    //     {
-    //         Name = "Admin"
-    //     };
-    //     await rolesCollection.InsertOneAsync(adminRole);
+        var adminRole = new Role
+        {
+            Name = "Admin"
+        };
+        await rolesCollection.InsertOneAsync(adminRole);
 
-    //     #endregion
+        #endregion
 
-    //     #region Users
+        #region Users
 
-    //     var passwordHasher = new PasswordHasher(new Logger<PasswordHasher>(new LoggerFactory()));
-    //     var usersCollection = _dbContext.Db.GetCollection<User>("Users");
+        var passwordHasher = new PasswordHasher(new Logger<PasswordHasher>(new LoggerFactory()));
+        var usersCollection = _dbContext.Db.GetCollection<User>("Users");
 
-    //     var testUser = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6409fc"),
-    //         Email = "test@gmail.com",
-    //         Phone = "+380123456789",
-    //         Roles = new List<Role> { userRole },
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(testUser);
+        var testUser = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6409fc"),
+            Email = "test@gmail.com",
+            Phone = "+380123456789",
+            Roles = new List<Role> { userRole },
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(testUser);
 
-    //     var updateTestUser = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6309fc"),
-    //         Email = "update@gmail.com",
-    //         Phone = "+380123446789",
-    //         Roles = new List<Role> { userRole },
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(updateTestUser);
+        var updateTestUser = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6309fc"),
+            Email = "update@gmail.com",
+            Phone = "+380123446789",
+            Roles = new List<Role> { userRole },
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(updateTestUser);
 
-    //     var groupOwner = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6419fc"),
-    //         Email = "owner@gmail.com",
-    //         Phone = "+380123456689",
-    //         Roles = new List<Role> { userRole, ownerRole },
-    //         GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(groupOwner);
+        var groupOwner = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6419fc"),
+            Email = "owner@gmail.com",
+            Phone = "+380123456689",
+            Roles = new List<Role> { userRole, ownerRole },
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(groupOwner);
 
-    //     var groupUser = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6439fc"),
-    //         Email = "group@gmail.com",
-    //         Phone = "+380123456889",
-    //         Roles = new List<Role> { userRole },
-    //         GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(groupUser);
+        var groupUser = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6439fc"),
+            Email = "group@gmail.com",
+            Phone = "+380123456889",
+            Roles = new List<Role> { userRole },
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(groupUser);
 
-    //     var groupUser2 = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6432fc"),
-    //         Email = "group2@gmail.com",
-    //         Phone = "+380123456779",
-    //         Roles = new List<Role> { userRole },
-    //         GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(groupUser2);
+        var groupUser2 = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6432fc"),
+            Email = "group2@gmail.com",
+            Phone = "+380123456779",
+            Roles = new List<Role> { userRole },
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // see group creation below
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(groupUser2);
 
-    //     var adminUser = new User
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6408fc"),
-    //         Email = "admin@gmail.com",
-    //         Phone = "+12345678901",
-    //         Roles = new List<Role> { userRole, adminRole },
-    //         PasswordHash = passwordHasher.Hash("Yuiop12345"),
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await usersCollection.InsertOneAsync(adminUser);
+        var adminUser = new User
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6408fc"),
+            Email = "admin@gmail.com",
+            Phone = "+12345678901",
+            Roles = new List<Role> { userRole, adminRole },
+            PasswordHash = passwordHasher.Hash("Yuiop12345"),
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await usersCollection.InsertOneAsync(adminUser);
 
-    //     #endregion
+        #endregion
 
-    //     #region RefreshTokens
+        #region RefreshTokens
 
-    //     var refreshTokensCollection = _dbContext.Db.GetCollection<RefreshToken>("RefreshTokens");
+        var refreshTokensCollection = _dbContext.Db.GetCollection<RefreshToken>("RefreshTokens");
 
-    //     var refreshToken = new RefreshToken
-    //     {
-    //         Token = "test-refresh-token",
-    //         ExpiryDateUTC = DateTime.UtcNow.AddDays(-7),
-    //         CreatedById = testUser.Id,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await refreshTokensCollection.InsertOneAsync(refreshToken);
+        var refreshToken = new RefreshToken
+        {
+            Token = "test-refresh-token",
+            ExpiryDateUTC = DateTime.UtcNow.AddDays(-7),
+            CreatedById = testUser.Id,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await refreshTokensCollection.InsertOneAsync(refreshToken);
 
-    //     #endregion
-    // }
+        #endregion
+    }
 
     // public async Task InitializeGroupsAsync()
     // {
@@ -202,5 +201,5 @@ public class DbInitializer(MongoDbContext dbContext)
     //         CreatedDateUtc = DateTime.UtcNow
     //     };
     //     await devicesCollection.InsertOneAsync(accessPointevice);
-    }
+    // }
 }

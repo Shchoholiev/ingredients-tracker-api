@@ -1,16 +1,15 @@
 using IngredientsTrackerApi.Application;
 using IngredientsTrackerApi.Persistance;
+using IngredientsTrackerApi.Infrastructure;
 using IngredientsTrackerApi.RestApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddMapper();
 builder.Services.AddRepositories();
+builder.Services.AddServices(builder.Configuration);
+builder.Services.AddJWTTokenAuthentication(builder.Configuration);
 builder.Services
     .AddCors(options =>
         {
@@ -22,6 +21,11 @@ builder.Services
                     .AllowAnyHeader();
             });
         });
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

@@ -9,7 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="6.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IngredientsTrackerApi.Domain\IngredientsTrackerApi.Domain.csproj" />
+    <ProjectReference Include="..\IngredientsTrackerApi.Application\IngredientsTrackerApi.Application.csproj" />
+    <ProjectReference Include="..\IngredientsTrackerApi.Persistance\IngredientsTrackerApi.Persistance.csproj" />
+    <ProjectReference Include="..\IngredientsTrackerApi.Infrastructure\IngredientsTrackerApi.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

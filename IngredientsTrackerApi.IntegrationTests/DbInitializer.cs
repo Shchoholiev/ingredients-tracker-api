@@ -4,6 +4,7 @@ using IngredientsTrackerApi.Domain.Entities;
 using IngredientsTrackerApi.Domain.Entities.Identity;
 using IngredientsTrackerApi.Infrastructure.Services.Identity;
 using IngredientsTrackerApi.Persistance.Database;
+using IngredientsTrackerApi.Domain.Enums;
 
 namespace IngredientsTrackerApi.IntegrationTests;
 
@@ -16,6 +17,8 @@ public class DbInitializer(MongoDbContext dbContext)
         _dbContext.Client.DropDatabase(_dbContext.Db.DatabaseNamespace.DatabaseName);
         
         InitializeUsersAsync().Wait();
+        InitializeGroupsAsync().Wait();
+        InitializeDevicesAsync().Wait();
     }
 
     public async Task InitializeUsersAsync()
@@ -142,64 +145,64 @@ public class DbInitializer(MongoDbContext dbContext)
         #endregion
     }
 
-    // public async Task InitializeGroupsAsync()
-    // {
-    //     var groupsCollection = _dbContext.Db.GetCollection<Group>("Groups");
+    public async Task InitializeGroupsAsync()
+    {
+        var groupsCollection = _dbContext.Db.GetCollection<Group>("Groups");
 
-    //     var group = new Group
-    //     {
-    //         Id = ObjectId.Parse("652c3b89ae02a3135d6429fc"),
-    //         Name = "Test Group 1",
-    //         CreatedById = ObjectId.Parse("652c3b89ae02a3135d6419fc"),
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await groupsCollection.InsertOneAsync(group);
+        var group = new Group
+        {
+            Id = ObjectId.Parse("652c3b89ae02a3135d6429fc"),
+            Name = "Test Group 1",
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6419fc"),
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await groupsCollection.InsertOneAsync(group);
 
-    //     var secondGroup = new Group
-    //     {
-    //         Id = ObjectId.Parse("662c3b89ae02a3135d6429fc"),
-    //         Name = "Test Group 1",
-    //         CreatedById = ObjectId.Empty,
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await groupsCollection.InsertOneAsync(secondGroup);
-    // }
+        var secondGroup = new Group
+        {
+            Id = ObjectId.Parse("662c3b89ae02a3135d6429fc"),
+            Name = "Test Group 2",
+            CreatedById = ObjectId.Empty,
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await groupsCollection.InsertOneAsync(secondGroup);
+    }
 
-    // public async Task InitializeDevicesAsync()
-    // {
-    //     var devicesCollection = _dbContext.Db.GetCollection<Device>("Devices");
+    public async Task InitializeDevicesAsync()
+    {
+        var devicesCollection = _dbContext.Db.GetCollection<Device>("Devices");
 
-    //     var device = new Device
-    //     {
-    //         Id = ObjectId.Parse("651c3b89ae02a3135d6439fc"),
-    //         Name = "Test Device 1",
-    //         Type = DeviceType.Rack4ShelfController,
-    //         Guid = Guid.Parse("7a78a8b2-6cf6-427d-8ed2-a5e117d8fd3f"), 
-    //         GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
-    //         CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await devicesCollection.InsertOneAsync(device);
+        var device = new Device
+        {
+            Id = ObjectId.Parse("651c3b89ae02a3135d6439fc"),
+            Name = "Test Device 1",
+            Type = DeviceType.ProductsRecognizer,
+            Guid = Guid.Parse("7a78a8b2-6cf6-427d-8ed2-a5e117d8fd3f"), 
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await devicesCollection.InsertOneAsync(device);
 
-    //     var updateDevice = new Device
-    //     {
-    //         Id = ObjectId.Parse("653c3b89ae02a3135d6439fc"),
-    //         Name = "Test Device for Update",
-    //         Type = DeviceType.Rack4ShelfController,
-    //         CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await devicesCollection.InsertOneAsync(updateDevice);
+        var updateDevice = new Device
+        {
+            Id = ObjectId.Parse("653c3b89ae02a3135d6439fc"),
+            Name = "Test Device for Update",
+            Type = DeviceType.ProductsRecognizer,
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await devicesCollection.InsertOneAsync(updateDevice);
 
-    //     var accessPointevice = new Device
-    //     {
-    //         Id = ObjectId.Parse("753c3b89ae02a3135d6139fc"),
-    //         Name = "Access Point Device",
-    //         Type = DeviceType.AccessPoint,
-    //         Guid = Guid.Parse("4d09b6ae-7675-4603-b632-9e834de6957f"), 
-    //         CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
-    //         CreatedDateUtc = DateTime.UtcNow
-    //     };
-    //     await devicesCollection.InsertOneAsync(accessPointevice);
-    // }
+        var accessPointevice = new Device
+        {
+            Id = ObjectId.Parse("753c3b89ae02a3135d6139fc"),
+            Name = "Products Recognizer",
+            Type = DeviceType.ProductsRecognizer,
+            Guid = Guid.Parse("4d09b6ae-7675-4603-b632-9e834de6957f"), 
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await devicesCollection.InsertOneAsync(accessPointevice);
+    }
 }

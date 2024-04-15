@@ -19,6 +19,7 @@ public class DbInitializer(MongoDbContext dbContext)
         InitializeUsersAsync().Wait();
         InitializeGroupsAsync().Wait();
         InitializeDevicesAsync().Wait();
+        InitializeCategoriesAsync().Wait();
     }
 
     public async Task InitializeUsersAsync()
@@ -204,5 +205,28 @@ public class DbInitializer(MongoDbContext dbContext)
             CreatedDateUtc = DateTime.UtcNow
         };
         await devicesCollection.InsertOneAsync(accessPointevice);
+    }
+
+    public async Task InitializeCategoriesAsync()
+    {
+        var categoriesCollection = _dbContext.Db.GetCollection<Category>("Categories");
+
+        var category1 = new Category
+        {
+            Id = ObjectId.Parse("752c3b89ae02a3135d6429fc"),
+            Name = "Category 1",
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await categoriesCollection.InsertOneAsync(category1);
+
+        var category2 = new Category
+        {
+            Id = ObjectId.Parse("762c3b89ae02a3135d6429fc"),
+            Name = "Category 2",
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await categoriesCollection.InsertOneAsync(category2);
     }
 }

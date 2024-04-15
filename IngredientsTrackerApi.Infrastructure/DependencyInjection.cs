@@ -22,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IGroupsService, GroupsService>();
         services.AddScoped<IDevicesService, DevicesService>();
+        services.AddScoped<ICategoriesService, CategoriesService>();
         
         services.AddScoped<IComputerVisionClient, ComputerVisionClient>(
             client => new ComputerVisionClient(new ApiKeyServiceClientCredentials(configuration.GetValue<string>("AzureCognitiveServices:ComputerVision:Key")))

@@ -23,9 +23,9 @@ public class ProductsController(
     
     [HttpGet]
     [Authorize]
-    public async Task<PagedList<ProductDto>> GetProductsPageAsync(int page, int size, string groupId, CancellationToken cancellationToken)
+    public async Task<PagedList<ProductDto>> GetProductsPageAsync(int page, int size, string groupId, string? search, CancellationToken cancellationToken)
     {
-        return await _productsService.GetProductsPageAsync(page, size, groupId, cancellationToken);
+        return await _productsService.GetProductsPageAsync(page, size, groupId, search, cancellationToken);
     }
 
     [HttpPatch("{productId}/count")]

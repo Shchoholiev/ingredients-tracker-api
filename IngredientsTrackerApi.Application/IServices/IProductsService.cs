@@ -22,8 +22,9 @@ public interface IProductsService
     /// <param name="size">The page size.</param>
     /// <param name="groupId">The ID of the group.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
+    /// <param name="search">The search query by Product name.</param> 
     /// <returns>A paged list of product DTOs.</returns>
-    Task<PagedList<ProductDto>> GetProductsPageAsync(int page, int size, string groupId, CancellationToken cancellationToken);
+    Task<PagedList<ProductDto>> GetProductsPageAsync(int page, int size, string groupId, string? search, CancellationToken cancellationToken);
 
     /// <summary>
     /// Updates the count of a product.

@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using IngredientsTrackerApi.Application.Exceptions;
 using IngredientsTrackerApi.Application.IRepositories;
@@ -10,6 +11,7 @@ using IngredientsTrackerApi.Application.Models.UpdateDto;
 using IngredientsTrackerApi.Application.Pagination;
 using IngredientsTrackerApi.Domain.Entities;
 using IngredientsTrackerApi.Infrastructure.Services.Identity;
+using LinqKit;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 
@@ -42,12 +44,17 @@ public class ProductsService(
         return productDto;
     }
 
-    public async Task<PagedList<ProductDto>> GetProductsPageAsync(int page, int size, string groupId, CancellationToken cancellationToken)
+    public async Task<PagedList<ProductDto>> GetProductsPageAsync(
+        int page, int size, string groupId, string? search, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"Getting a page of products. Page: {page}, Size: {size}, GroupId: {groupId}.");
 
         var groupObjectId = ObjectId.Parse(groupId);
         Expression<Func<Product, bool>> predicate = p => p.GroupId == groupObjectId;
+        if (!string.IsNullOrEmpty(search))
+        {
+            predicate = predicate.And(p => Regex.IsMatch(p.Name, search, RegexOptions.IgnoreCase));
+        }
 
         var productsTask = _productsRepository.GetPageAsync(page, size, predicate, cancellationToken);
         var totalCountTask = _productsRepository.GetCountAsync(predicate, cancellationToken);

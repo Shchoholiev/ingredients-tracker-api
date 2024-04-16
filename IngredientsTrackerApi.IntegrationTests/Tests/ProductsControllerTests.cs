@@ -76,6 +76,26 @@ public class ProductsControllerTests(TestingFactory<Program> factory)
     }
 
     [Fact]
+    public async Task GetProductsPageAsync_SearchByName_ReturnsProductList()
+    {
+        // Arrange
+        await LoginAsync("test@gmail.com", "Yuiop12345");
+        var groupId = "652c3b89ae02a3135d6429fc";
+        int page = 1;
+        int size = 10;
+        var search = "Eggs";
+
+        // Act
+        var response = await HttpClient.GetAsync($"{ResourceUrl}?page={page}&size={size}&groupId={groupId}&search={search}");
+        var productDtos = await response.Content.ReadFromJsonAsync<PagedList<ProductDto>>();
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(productDtos);
+        Assert.Single(productDtos.Items);
+    }
+
+    [Fact]
     public async Task GetProductsPageAsync_UnauthorizedUser_ReturnsUnauthorized()
     {
         // Arrange

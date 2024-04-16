@@ -20,6 +20,7 @@ public class DbInitializer(MongoDbContext dbContext)
         InitializeGroupsAsync().Wait();
         InitializeDevicesAsync().Wait();
         InitializeCategoriesAsync().Wait();
+        InitializeProductsAsync().Wait();
     }
 
     public async Task InitializeUsersAsync()
@@ -228,5 +229,33 @@ public class DbInitializer(MongoDbContext dbContext)
             CreatedDateUtc = DateTime.UtcNow
         };
         await categoriesCollection.InsertOneAsync(category2);
+    }
+
+    public async Task InitializeProductsAsync()
+    {
+        var productsCollection = _dbContext.Db.GetCollection<Product>("Products");
+
+        var product1 = new Product
+        {
+            Id = ObjectId.Parse("801c3b89ae02a3135d6429fc"),
+            Name = "Cheese",
+            Count = 1,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product1);
+
+        var product2 = new Product
+        {
+            Id = ObjectId.Parse("802c3b89ae02a3135d6429fc"),
+            Name = "Chicken Breasts",
+            Count = 5,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+
+        await productsCollection.InsertOneAsync(product2);
     }
 }

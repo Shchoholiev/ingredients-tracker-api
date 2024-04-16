@@ -21,8 +21,8 @@ public class CategoriesController(ICategoriesService categoriesService) : ApiCon
 
     [HttpGet]
     [Authorize]
-    public async Task<PagedList<CategoryDto>> GetCategoryPageAsync(int page, int size, CancellationToken cancellationToken)
+    public async Task<PagedList<CategoryDto>> GetCategoryPageAsync(int page, int size, string? search, CancellationToken cancellationToken)
     {
-        return await _categoriesService.GetCategoryPageAsync(page, size, cancellationToken);
+        return await _categoriesService.GetCategoryPageAsync(page, size, search, cancellationToken);
     }
 }

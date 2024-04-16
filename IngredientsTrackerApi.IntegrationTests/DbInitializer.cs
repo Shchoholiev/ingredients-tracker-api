@@ -215,7 +215,7 @@ public class DbInitializer(MongoDbContext dbContext)
         var category1 = new Category
         {
             Id = ObjectId.Parse("752c3b89ae02a3135d6429fc"),
-            Name = "Category 1",
+            Name = "Breakfast",
             CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
             CreatedDateUtc = DateTime.UtcNow
         };
@@ -224,7 +224,7 @@ public class DbInitializer(MongoDbContext dbContext)
         var category2 = new Category
         {
             Id = ObjectId.Parse("762c3b89ae02a3135d6429fc"),
-            Name = "Category 2",
+            Name = "Ukrainian",
             CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
             CreatedDateUtc = DateTime.UtcNow
         };

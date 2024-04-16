@@ -1,11 +1,8 @@
 using System.Net;
 using System.Net.Http.Json;
-using IngredientsTrackerApi.Application.Models;
-using IngredientsTrackerApi.Application.Models.AdminDto;
 using IngredientsTrackerApi.Application.Models.CreateDto;
 using IngredientsTrackerApi.Application.Models.Dto;
 using IngredientsTrackerApi.Application.Pagination;
-using IngredientsTrackerApi.Domain.Enums;
 
 namespace IngredientsTrackerApi.IntegrationTests.Tests;
 
@@ -71,6 +68,26 @@ public class CategoriesControllerTests(TestingFactory<Program> factory)
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(categoryDtos);
         Assert.NotEmpty(categoryDtos.Items);
+    }
+
+    [Fact]
+    public async Task GetCategoryPageAsync_SearchByName_ReturnsCategoryList()
+    {
+        // Arrange
+        await LoginAsync("owner@gmail.com", "Yuiop12345");
+        int page = 1;
+        int size = 10;
+        var search = "breakfast";
+
+        // Act
+        var response = await HttpClient.GetAsync($"{ResourceUrl}?page={page}&size={size}&search={search}");
+        var categoryDtos = await response.Content.ReadFromJsonAsync<PagedList<CategoryDto>>();
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(categoryDtos);
+        Assert.NotEmpty(categoryDtos.Items);
+        Assert.Single(categoryDtos.Items);
     }
 
     [Fact]

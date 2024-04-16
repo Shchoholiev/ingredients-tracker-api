@@ -8,6 +8,9 @@ using IngredientsTrackerApi.Application.Models.GlobalInstances;
 using IngredientsTrackerApi.Application.Pagination;
 using IngredientsTrackerApi.Infrastructure.Services.Identity;
 using IngredientsTrackerApi.Domain.Entities;
+using System.Linq.Expressions;
+using LinqKit;
+using System.Text.RegularExpressions;
 
 namespace IngredientsTrackerApi.Infrastructure.Services;
 
@@ -38,12 +41,18 @@ public class CategoriesService(
         return categoryDto;
     }
 
-    public async Task<PagedList<CategoryDto>> GetCategoryPageAsync(int page, int size, CancellationToken cancellationToken)
+    public async Task<PagedList<CategoryDto>> GetCategoryPageAsync(int page, int size, string? search, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"Getting a page of categories. Page: {page}, Size: {size}.");
 
-        var categoriesTask = _categoriesRepository.GetPageAsync(page, size, cancellationToken);
-        var totalCountTask = _categoriesRepository.GetTotalCountAsync(cancellationToken);
+        Expression<Func<Category, bool>> predicate = PredicateBuilder.New<Category>(c => !c.IsDeleted);
+        if (!string.IsNullOrEmpty(search))
+        {
+            predicate = predicate.And(c => Regex.IsMatch(c.Name, search, RegexOptions.IgnoreCase));
+        }
+
+        var categoriesTask = _categoriesRepository.GetPageAsync(page, size, predicate, cancellationToken);
+        var totalCountTask = _categoriesRepository.GetCountAsync(predicate, cancellationToken);
 
         await Task.WhenAll(categoriesTask, totalCountTask);
 

@@ -21,6 +21,7 @@ public class DbInitializer(MongoDbContext dbContext)
         InitializeDevicesAsync().Wait();
         InitializeCategoriesAsync().Wait();
         InitializeProductsAsync().Wait();
+        InitializeRecipesAsync().Wait();
     }
 
     public async Task InitializeUsersAsync()
@@ -257,5 +258,126 @@ public class DbInitializer(MongoDbContext dbContext)
         };
 
         await productsCollection.InsertOneAsync(product2);
+
+        var product3 = new Product
+        {
+            Id = ObjectId.Parse("803c3b89ae02a3135d6429fc"),
+            Name = "Beetroot",
+            Count = 2,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product3);
+
+        var product4 = new Product
+        {
+            Id = ObjectId.Parse("804c3b89ae02a3135d6429fc"),
+            Name = "Cabbage",
+            Count = 1,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product4);
+
+        var product5 = new Product
+        {
+            Id = ObjectId.Parse("805c3b89ae02a3135d6429fc"),
+            Name = "Potatoes",
+            Count = 2,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product5);
+
+        var product6 = new Product
+        {
+            Id = ObjectId.Parse("806c3b89ae02a3135d6429fc"),
+            Name = "Carrots",
+            Count = 2,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product6);
+
+        var product7 = new Product
+        {
+            Id = ObjectId.Parse("807c3b89ae02a3135d6429fc"),
+            Name = "Onion",
+            Count = 1,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product7);
+
+        var product8 = new Product
+        {
+            Id = ObjectId.Parse("808c3b89ae02a3135d6429fc"),
+            Name = "Tomato Paste",
+            Count = 2,
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc"), // See above
+            CreatedById = ObjectId.Parse("652c3b89ae02a3135d6408fc"), // See above (admin@gmail.com)
+            CreatedDateUtc = DateTime.UtcNow
+        };
+        await productsCollection.InsertOneAsync(product8);
+    }
+
+    public async Task InitializeRecipesAsync()
+    {
+        var recipesCollection = _dbContext.Db.GetCollection<Recipe>("Recipes");
+
+        var recipe = new Recipe
+        {
+            Id = ObjectId.Parse("901c3b89ae02a3135d6429fc"),
+            Name = "Cabbage Salad",
+            Thumbnail = null,
+            Text = "This is a simple recipe",
+            Ingredients = [
+                new Product { Id = ObjectId.Parse("804c3b89ae02a3135d6429fc"), Name = "Cabbage", Count = 1 },
+                new Product { Id = ObjectId.Parse("807c3b89ae02a3135d6429fc"), Name = "Onion", Count = 2 },
+            ],
+            Categories = [
+                new Category { Id = ObjectId.Parse("752c3b89ae02a3135d6429fc"), Name = "Breakfast" }
+            ],
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc")
+        };
+        await recipesCollection.InsertOneAsync(recipe);
+
+        var friedPotatoes = new Recipe
+        {
+            Id = ObjectId.Parse("902c3b89ae02a3135d6429fc"),
+            Name = "Fried Potatoes",
+            Thumbnail = null,
+            Text = "This is a simple recipe",
+            Ingredients = [
+                new Product { Id = ObjectId.Parse("805c3b89ae02a3135d6429fc"), Name = "Potatoes", Count = 2 },
+                new Product { Id = ObjectId.Parse("807c3b89ae02a3135d6429fc"), Name = "Onion", Count = 1 },
+            ],
+            Categories = [
+                new Category { Id = ObjectId.Parse("752c3b89ae02a3135d6429fc"), Name = "Breakfast" }
+            ],
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc")
+        };
+        await recipesCollection.InsertOneAsync(friedPotatoes);
+
+        var deleteRecipe = new Recipe
+        {
+            Id = ObjectId.Parse("903c3b89ae02a3135d6429fc"),
+            Name = "Delete",
+            Thumbnail = null,
+            Text = "This is a simple recipe",
+            Ingredients = [
+                new Product { Id = ObjectId.Parse("805c3b89ae02a3135d6429fc"), Name = "Potatoes", Count = 5 },
+            ],
+            Categories = [
+                new Category { Id = ObjectId.Parse("752c3b89ae02a3135d6429fc"), Name = "Breakfast" }
+            ],
+            GroupId = ObjectId.Parse("652c3b89ae02a3135d6429fc")
+        };
+        await recipesCollection.InsertOneAsync(deleteRecipe);
     }
 }

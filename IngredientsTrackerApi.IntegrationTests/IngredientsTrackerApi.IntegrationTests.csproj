@@ -31,4 +31,10 @@
     <ProjectReference Include="..\IngredientsTrackerApi.Domain\IngredientsTrackerApi.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Media\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

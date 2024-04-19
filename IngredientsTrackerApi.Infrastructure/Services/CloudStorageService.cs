@@ -17,7 +17,7 @@ public class CloudStorageService : ICloudStorageService
         this._bucketName = configuration.GetSection("CloudObjectStorage")["BucketName"];
         var config = new AmazonS3Config
         {
-            ServiceURL = configuration.GetConnectionString("StorageEndpoint")
+            ServiceURL = configuration.GetSection("CloudObjectStorage")["StorageEndpoint"]
         };
         var accessKey = configuration.GetSection("CloudObjectStorage")["AccessKey"];
         var secretKey = configuration.GetSection("CloudObjectStorage")["SecretKey"];

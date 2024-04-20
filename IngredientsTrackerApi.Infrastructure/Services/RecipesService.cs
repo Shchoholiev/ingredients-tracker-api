@@ -60,7 +60,8 @@ public class RecipesService(
         Expression<Func<Product, bool>> predicate = p => p.GroupId == groupObjectId;
         if (!string.IsNullOrEmpty(search))
         {
-            predicate = predicate.And(p => Regex.IsMatch(p.Name, search, RegexOptions.IgnoreCase));
+            predicate = predicate.And(p => Regex.IsMatch(p.Name, search, RegexOptions.IgnoreCase)
+                || Regex.IsMatch(p.Description, search, RegexOptions.IgnoreCase));
         }
 
         var productsTask = _productsRepository.GetPageAsync(page, size, predicate, cancellationToken);

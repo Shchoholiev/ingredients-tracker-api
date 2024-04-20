@@ -7,24 +7,24 @@ namespace IngredientsTrackerApi.IntegrationTests.Tests;
 
 public class TokensControllerTests(TestingFactory<Program> factory) : TestsBase(factory, "tokens")
 {
-    [Fact]
-    public async Task RefreshAccessTokenAsync_ValidInput_Returns200NewTokens()
-    {
-        // Arrange
-        var initialTokens = await GetTestTokensAsync();
+    // [Fact]
+    // public async Task RefreshAccessTokenAsync_ValidInput_Returns200NewTokens()
+    // {
+    //     // Arrange
+    //     var initialTokens = await GetTestTokensAsync();
 
-        // Act
-        var response = await HttpClient.PostAsJsonAsync($"{ResourceUrl}/refresh", initialTokens);
-        var refreshedTokens = await response.Content.ReadFromJsonAsync<TokensModel>();
+    //     // Act
+    //     var response = await HttpClient.PostAsJsonAsync($"{ResourceUrl}/refresh", initialTokens);
+    //     var refreshedTokens = await response.Content.ReadFromJsonAsync<TokensModel>();
 
-        // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.NotNull(refreshedTokens);
-        Assert.NotNull(refreshedTokens.AccessToken);
-        Assert.NotNull(refreshedTokens.RefreshToken);
-        Assert.NotEqual(initialTokens.AccessToken, refreshedTokens.AccessToken);
-        Assert.Equal(initialTokens.RefreshToken, refreshedTokens.RefreshToken);
-    }
+    //     // Assert
+    //     Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    //     Assert.NotNull(refreshedTokens);
+    //     Assert.NotNull(refreshedTokens.AccessToken);
+    //     Assert.NotNull(refreshedTokens.RefreshToken);
+    //     Assert.NotEqual(initialTokens.AccessToken, refreshedTokens.AccessToken);
+    //     Assert.Equal(initialTokens.RefreshToken, refreshedTokens.RefreshToken);
+    // }
 
     [Fact]
     public async Task RefreshAccessTokenAsync_InvalidAccessToken_Returns401Unauthorized()

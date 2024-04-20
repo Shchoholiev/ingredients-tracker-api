@@ -195,6 +195,15 @@ public class RecipesService(
         return recipeDto;
     }
 
+    /// <summary>
+    /// Retrieves a page of recipes based on the specified criteria.
+    /// </summary>
+    /// <param name="pageNumber">The page number to retrieve.</param>
+    /// <param name="pageSize">The number of recipes per page.</param>
+    /// <param name="groupId">The ID of the group to filter recipes by.</param>
+    /// <param name="search">The search string to filter recipes by name (optional).</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation that returns a <see cref="PagedList{T}"/> of <see cref="RecipeDto"/>.</returns>
     public async Task<PagedList<RecipeDto>> GetRecipesPageAsync(int pageNumber, int pageSize, string groupId, string? search, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"Getting a page of recipes. Page: {pageNumber}, Size: {pageSize}, GroupId: {groupId}.");

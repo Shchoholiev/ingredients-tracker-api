@@ -92,6 +92,13 @@ public class GroupsService(
         return dtos;
     }
 
+    /// <summary>
+    /// <list type="number">
+    /// <item>Creates a new group</item>
+    /// <item>Adds current logged in user to created group</item>
+    /// <item>Adds <c>Owner</c> role to current user</item>
+    /// </list>
+    /// </summary>
     public async Task<GroupDto> CreateGroupAsync(GroupCreateDto groupCreateDto, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"Creating group for user with Id: {GlobalUser.Id}");

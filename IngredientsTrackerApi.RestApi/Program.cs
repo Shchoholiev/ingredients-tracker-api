@@ -5,6 +5,14 @@ using IngredientsTrackerApi.RestApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var appConfigConnectionString = Environment.GetEnvironmentVariable("APP_CONFIG") ?? builder.Configuration.GetConnectionString("AppConfig");
+if (!string.IsNullOrEmpty(appConfigConnectionString)) 
+{
+    Console.WriteLine($"Using Azure App Configuration");
+
+    builder.Configuration.AddAzureAppConfiguration(appConfigConnectionString);
+}
+
 // Add services to the container.
 builder.Services.AddMapper();
 builder.Services.AddRepositories();

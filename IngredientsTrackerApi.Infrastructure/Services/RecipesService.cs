@@ -143,7 +143,7 @@ public class RecipesService(
         _logger.LogInformation($"Getting a page of recipes. Page: {pageNumber}, Size: {pageSize}, GroupId: {groupId}.");
 
         var groupObjectId = ObjectId.Parse(groupId);
-        Expression<Func<Recipe, bool>> predicate = r => r.GroupId == groupObjectId;
+        Expression<Func<Recipe, bool>> predicate = r => r.GroupId == groupObjectId && !r.IsDeleted;
         if (!string.IsNullOrEmpty(search))
         {
             predicate = predicate.And(r => Regex.IsMatch(r.Name, search, RegexOptions.IgnoreCase)
